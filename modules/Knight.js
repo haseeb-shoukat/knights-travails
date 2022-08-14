@@ -13,14 +13,13 @@ const Knight = function () {
       return shortestPath(this.root, end);
     },
 
-    shortestPath: function (start, end, level = 0) {
+    shortestPath: function (start, end) {
       let queue = [start];
       while (queue[0]) {
-        let x = queue[0];
+        let x = queue.pop();
         if (JSON.stringify(x.value) === JSON.stringify(end)) return x;
-        level += 1;
+        x.nextNodes.map((node) => (node.parent = x));
         queue.push(...x.nextNodes);
-        queue.shift();
       }
     },
 
