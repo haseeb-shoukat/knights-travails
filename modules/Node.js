@@ -4,3 +4,5 @@ const Node = class {
     this.nextNodes = null;
   }
 };
+
+export { Node };
