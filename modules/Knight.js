@@ -1,5 +1,5 @@
-import { Node } from "./Node";
-import { GameBoard } from "./GameBoard";
+import { Node } from "./Node.js";
+import { GameBoard } from "./GameBoard.js";
 
 const Knight = function () {
   return {
@@ -9,15 +9,17 @@ const Knight = function () {
 
     knightMoves: function (start, end) {
       this.alreadyTraveled = [];
-      this.root = buildTree(start, end);
-      let node = shortestPath(this.root, end);
+      this.root = this.buildTree(start, end);
+      let node = this.shortestPath(this.root, end);
       let path = [];
       while (node) {
         path.push(node.value);
         node = node.parent;
       }
       path.reverse();
-      return path;
+      return `You made it in ${
+        path.length - 1
+      } moves! Here's your path: \n ${JSON.stringify(path)}`;
     },
 
     shortestPath: function (start, end) {
@@ -33,11 +35,12 @@ const Knight = function () {
     buildTree: function (start, end) {
       const node = new Node(start);
       if (JSON.stringify(start) === JSON.stringify(end)) return node;
-      node.nextNodes = [
-        ...this.nextPossibleMoves(start).forEach((item) =>
-          this.buildTree(item, end)
-        ),
-      ];
+      let possibleMoves = this.nextPossibleMoves(start);
+      if (possibleMoves.length === 0) return node;
+      possibleMoves.forEach((item) => {
+        let nextNode = this.buildTree(item, end);
+        node.nextNodes.push(nextNode);
+      });
       return node;
     },
 
@@ -53,7 +56,7 @@ const Knight = function () {
         [x - 2, y + 1],
       ];
       arr = arr.filter(
-        (item) => item.notAlreadyTraveled() && item.inPossibleMoves()
+        (item) => this.notAlreadyTraveled(item) && this.inPossibleMoves(item)
       );
       this.alreadyTraveled.push(...arr);
       return arr;
@@ -66,8 +69,8 @@ const Knight = function () {
     },
 
     inPossibleMoves: function (item) {
-      return this.possibleMoves.every(
-        (coords) => JSON.stringify(item) !== JSON.stringify(coords)
+      return this.gameBoard.possibleMoves.some(
+        (coords) => JSON.stringify(item) === JSON.stringify(coords)
       );
     },
   };
