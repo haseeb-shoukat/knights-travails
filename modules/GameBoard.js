@@ -11,4 +11,4 @@ const GameBoard = function () {
   };
 };
 
-export { GameBoard }
+export { GameBoard };
