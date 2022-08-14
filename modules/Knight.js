@@ -10,7 +10,14 @@ const Knight = function () {
     knightMoves: function (start, end) {
       this.alreadyTraveled = [];
       this.root = buildTree(start, end);
-      return shortestPath(this.root, end);
+      let node = shortestPath(this.root, end);
+      let path = [];
+      while (node) {
+        path.push(node.value);
+        node = node.parent;
+      }
+      path.reverse();
+      return path;
     },
 
     shortestPath: function (start, end) {
