@@ -1,7 +1,7 @@
 import { Node } from "./Node";
 import { GameBoard } from "./GameBoard";
 
-const Knight = function (gameBoard) {
+const Knight = function () {
   return {
     gameBoard: new GameBoard(),
     alreadyTraveled: [],
@@ -10,6 +10,18 @@ const Knight = function (gameBoard) {
     knightMoves: function (start, end) {
       this.alreadyTraveled = [];
       this.root = buildTree(start, end);
+      return shortestPath(this.root, end);
+    },
+
+    shortestPath: function (start, end, level = 0) {
+      let queue = [start];
+      while (queue[0]) {
+        let x = queue[0];
+        if (JSON.stringify(x.value) === JSON.stringify(end)) return x;
+        level += 1;
+        queue.push(...x.nextNodes);
+        queue.shift();
+      }
     },
 
     buildTree: function (start, end) {
