@@ -1,0 +1,21 @@
+{
+  "name": "knights-travails",
+  "version": "1.0.0",
+  "description": "JavaScript application for calculating the shortest path a knight can take to reach from one coordinate to another on a chess board. Uses concepts from data structures, ADTs, sorting and searching algorithms. Application uses a tree like structure to calculate every possible move sequence from point A to B and then uses a searching algorithm to find the shortest path.",
+  "main": "driver.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haseeb-shoukat/knights-travails.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/haseeb-shoukat/knights-travails/issues"
+  },
+  "homepage": "https://github.com/haseeb-shoukat/knights-travails#readme"
+}
